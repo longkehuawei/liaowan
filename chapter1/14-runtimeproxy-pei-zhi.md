@@ -14,45 +14,57 @@
 
 `}`
 
-#### 2.laya调用java静态方法
+#### 2.laya调用对象方法获取平台信息
 
 ---
 
-* #####  **进入游戏，游戏主动拉取平台数据**
+* ##### **进入游戏，游戏主动拉取平台数据**
 
-#####         数据格式如下
+##### 数据格式如下:
+
+**{"voice":"0","time":"40","model":"PK","pkId":"519092747169701888"}**
+
+**voice:0表示音乐关，1表示音乐开启**
+
+**time：时间单位为S**
+
+**modle:PK表示游戏当前为PK模式，SINGLE为单机模式**
 
 public  String GetPlatformInfo\(\) {
 
-        ExportJavaFunction.CallBackToJS \(this, "GetPlatformInfo", data\);
+```
+    ExportJavaFunction.CallBackToJS \(this, "GetPlatformInfo", data\);
 
-        try {
+    try {
 
-            JSONObject object=new JSONObject\(data\);
+        JSONObject object=new JSONObject\(data\);
 
-            if\(object.has\("model"\)\){
+        if\(object.has\("model"\)\){
 
-                String model =object.getString\("model"\);
+            String model =object.getString\("model"\);
 
-                if\(model.equals\("PK"\)\){
+            if\(model.equals\("PK"\)\){
 
-                    EventBus.getDefault\(\).post\(new MessageEvent\(""\)\);
-
-                }
+                EventBus.getDefault\(\).post\(new MessageEvent\(""\)\);
 
             }
-
-
-
-        } catch \(JSONException e\) {
-
-            e.printStackTrace\(\);
 
         }
 
 
 
-        return data;
+    } catch \(JSONException e\) {
+
+        e.printStackTrace\(\);
 
     }
+
+
+
+    return data;
+
+}
+```
+
+
 
