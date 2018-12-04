@@ -73,55 +73,63 @@ public  String GetPlatformInfo\(\) {
 
 #### 3.游戏中,laya调用静态方法，提交游戏分数等数据给平台
 
- public static void SendMessageToPlatform\(JSONObject jsonObj\) {
+**数据格式2种，如下**
 
-        if \(mActivity!=null&&mActivity.get\(\) != null\){
+1. [ ] **游戏进行中，每秒上传数据**
 
-            try {
+         **{"cmd":"going"，"score":100}**
 
-                JSONObject object=new JSONObject\(data\);
+`public static void SendMessageToPlatform(JSONObject jsonObj) {`
 
-                String model = "";
+`        if (mActivity!=null&&mActivity.get() != null){`
 
-                if\(object.has\("model"\)\){
+`            try {`
 
-                    model=object.getString\("model"\);
+`                JSONObject object=new JSONObject(data);`
 
-                }
+`                String model = "";`
 
-                if\(model.equals\("PK"\)\){
+`                if(object.has("model")){`
 
-                    EventBus.getDefault\(\).post\(new ScoreEvent\(jsonObj.getString\("score"\)\)\);
+`                    model=object.getString("model");`
 
-                    if\(jsonObj.getString\("cmd"\).equals\("going"\)\){
+`                }`
 
-                        jsonObj.put\("from",to\);
+`                if(model.equals("PK")){`
 
-                        jsonObj.put\("to",from\);
+`                    EventBus.getDefault().post(new ScoreEvent(jsonObj.getString("score")));`
 
-                        jsonObj.put\("msgType","SCORE"\);
+`                    if(jsonObj.getString("cmd").equals("going")){`
 
-                        jsonObj.put\("recType","SINGLE"\);
+`                        jsonObj.put("from",to);`
 
-                        jsonObj.put\("content",jsonObj.getString\("score"\)\);
+`                        jsonObj.put("to",from);`
 
-                        jsonObj.remove\("score"\);
+`                        jsonObj.put("msgType","SCORE");`
 
-                    }
+`                        jsonObj.put("recType","SINGLE");`
 
-                }
+`                        jsonObj.put("content",jsonObj.getString("score"));`
 
-                mActivity.get\(\).sendBroadcast\( new Intent\(FROM\_GAME\_ACTION\).putExtra\("data",jsonObj.toString\(\)\).putExtra\("modle",model\)\);
+`                        jsonObj.remove("score");`
 
-            } catch \(JSONException e\) {
+`                    }`
 
-                e.printStackTrace\(\);
+`                }`
 
-            }
+`                mActivity.get().sendBroadcast( new Intent(FROM_GAME_ACTION).putExtra("data",jsonObj.toString()).putExtra("modle",model));`
 
-        }
+`            } catch (JSONException e) {`
 
-    }
+`                e.printStackTrace();`
+
+`            }`
+
+`        }`
+
+`    }`
+
+
 
 
 
