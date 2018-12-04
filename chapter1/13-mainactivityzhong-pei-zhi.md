@@ -4,53 +4,55 @@
 
 /\*\*
 
-     \* 处理平台消息
+```
+ \* 处理平台消息
 
-     \*/
+ \*/
+```
 
-   ` private class GameMessageBroadcastReceiver extends BroadcastReceiver {`
+`private class GameMessageBroadcastReceiver extends BroadcastReceiver {`
 
-`        @Override`
+`@Override`
 
-`        public void onReceive(Context context, Intent intent) {`
+`public void onReceive(Context context, Intent intent) {`
 
-`            //游戏发送过来的消息`
+`//游戏发送过来的消息`
 
-`            if(intent.getAction().equals(FROM_GAME_ACTION)){`
+`if(intent.getAction().equals(FROM_GAME_ACTION)){`
 
-`                if(intent.getStringExtra("type").equals("finish")){`
+`if(intent.getStringExtra("type").equals("finish")){`
 
-`                    finish();`
+`finish();`
 
-`                    new Handler().postDelayed(new Runnable() {`
+`new Handler().postDelayed(new Runnable() {`
 
-`                        @Override`
+`@Override`
 
-`                        public void run() {`
+`public void run() {`
 
-`                            int pid = android.os.Process.myPid();`
+`int pid = android.os.Process.myPid();`
 
-`                            Log.e("message", "Logout SendMessageToPlatform = "+pid);`
+`Log.e("message", "Logout SendMessageToPlatform = "+pid);`
 
-`                            android.os.Process.killProcess(pid);`
+`android.os.Process.killProcess(pid);`
 
-`                        }`
+`}`
 
-`                    }, 100);`
+`}, 100);`
 
-`                }else{`
+`}else{`
 
-`                    String score= intent.getStringExtra("score");`
+`String score= intent.getStringExtra("score");`
 
-`                    ((TextView)findViewById(R.id.OpponentScore_tv)).setText(score);`
+`((TextView)findViewById(R.id.OpponentScore_tv)).setText(score);`
 
-`                }`
+`}`
 
-`            }`
+`}`
 
-`        }`
+`}`
 
-`    }`
+`}`
 
 #### 2.初始化laya引擎的时候，和游戏交互，传递给游戏数据
 
@@ -58,7 +60,25 @@
 
 `{`
 
-`mProxy = new RuntimeProxy(this,getIntent().getStringExtra("type"));`
+`getUser();`
+
+`JSONObject object=new JSONObject();`
+
+`try {`
+
+`object.put("voice",getIntent().getStringExtra("voice"));`
+
+`object.put("time",getIntent().getStringExtra("time"));`
+
+`object.put("model",getIntent().getStringExtra("modle"));`
+
+`} catch (JSONException e) {`
+
+`e.printStackTrace();`
+
+`}`
+
+`mProxy = new RuntimeProxy(this, object.toString(),fromId,myId);`
 
 `mPlugin = new GameEngine(this);`
 
@@ -72,39 +92,15 @@
 
 `View gameView = mPlugin.game_plugin_get_view();`
 
-`this.setContentView(gameView);`
+`LinearLayout layout= (LinearLayout) findViewById(R.id.content_layout);`
 
-`new Handler().postDelayed(new Runnable(){`
+`layout.addView(gameView);`
 
-`public void run() {`
+`//handler.postDelayed(runnable, 1000);//每两秒执行一次runnable.`
 
-`String isOn=getIntent().getStringExtra("isOn");`
-
-`JSONObject object=new JSONObject();`
-
-`try {`
-
-`object.put\("isOn",isOn\);            
-//此为传递数据json字段\`\*\*
-
-`ConchJNI.RunJS("onRecvMessage("+object.toString()+")");`
-
-`} catch (JSONException e) {`
-
-`e.printStackTrace();`
-
-`}`
-
-`  
-`
-
-`}`
-
-`},6000);`
+`//this.setContentView(layout);`
 
 `isLoad=true;`
 
 `}`
-
-![](/assets/TIM截图20180828175707.png)
 
