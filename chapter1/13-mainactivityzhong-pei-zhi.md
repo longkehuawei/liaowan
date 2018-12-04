@@ -1,69 +1,56 @@
 # MainActivity中配置
 
-#### 1.注册广播接收器
+#### 1.处理平台消息
 
-`@Override`
+/\*\*
 
-`protected void onCreate(Bundle savedInstanceState) {`
+     \* 处理平台消息
 
-`super.onCreate(savedInstanceState);`
+     \*/
 
-`getWindow().requestFeature(Window.FEATURE_NO_TITLE);`
+    private class GameMessageBroadcastReceiver extends BroadcastReceiver {
 
-`getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);`
+        @Override
 
-`/*`
+        public void onReceive\(Context context, Intent intent\) {
 
-`* 如果不想使用更新流程，可以屏蔽checkApkUpdate函数，一定要把这个游戏自动升级的注释掉`
+            //平台发送过来的消息
 
-`*/`
+            if\(intent.getAction\(\).equals\(FROM\_GAME\_ACTION\)\){
 
-`//checkApkUpdate(this);`
+                if\(intent.getStringExtra\("type"\).equals\("finish"\)\){
 
-`IntentFilter intentFilter = new IntentFilter(FROM_GAME_ACTION);`
+                    finish\(\);
 
-`registerReceiver(mReceiver,intentFilter);`
+                    new Handler\(\).postDelayed\(new Runnable\(\) {
 
-`  
-`
+                        @Override
 
-`//initEngine();`
+                        public void run\(\) {
 
-`}`
+                            int pid = android.os.Process.myPid\(\);
 
-`/**`
+                            Log.e\("message", "Logout SendMessageToPlatform = "+pid\);
 
-`* 自定义广播接受器,用来处理游戏发过来的消息`
+                            android.os.Process.killProcess\(pid\);
 
-`*/`
+                        }
 
-`private class GameMessageBroadcastReceiver extends BroadcastReceiver {`
+                    }, 100\);
 
-`  
-`
+                }else{
 
-`@Override`
+                    String score= intent.getStringExtra\("score"\);
 
-`public void onReceive(Context context, Intent intent) {`
+                    \(\(TextView\)findViewById\(R.id.OpponentScore\_tv\)\).setText\(score\);
 
-`//游戏发送过来的消息`
+                }
 
+            }
 
+        }
 
-`if(intent.getAction().equals(FROM_GAME_ACTION)){`
-
-`finish();`
-
-`}`
-
-`  
-`
-
-`}`
-
-`}`
-
-
+    }
 
 #### 2.初始化laya引擎的时候，和游戏交互，传递给游戏数据
 
@@ -97,7 +84,7 @@
 
 `try {`
 
-`object.put\("isOn",isOn\);        
+`object.put\("isOn",isOn\);          
 //此为传递数据json字段\`\*\*
 
 `ConchJNI.RunJS("onRecvMessage("+object.toString()+")");`
