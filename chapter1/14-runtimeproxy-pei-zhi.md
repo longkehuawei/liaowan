@@ -77,59 +77,57 @@ public  String GetPlatformInfo\(\) {
 
 1. [ ] **游戏进行中，每秒上传数据**
 
-         **{"cmd":"going"，"score":100}**
+   **{"cmd":"going"，"score":100}**
 
-`public static void SendMessageToPlatform(JSONObject jsonObj) {`
+2. [ ] **游戏结束 {"cmd":"end"，"score":100}**
 
-`        if (mActivity!=null&&mActivity.get() != null){`
+`public static void SendMessageToPlatform(JSONObject jsonObj) {`
 
-`            try {`
+`if (mActivity!=null&&mActivity.get() != null){`
 
-`                JSONObject object=new JSONObject(data);`
+`try {`
 
-`                String model = "";`
+`JSONObject object=new JSONObject(data);`
 
-`                if(object.has("model")){`
+`String model = "";`
 
-`                    model=object.getString("model");`
+`if(object.has("model")){`
 
-`                }`
+`model=object.getString("model");`
 
-`                if(model.equals("PK")){`
+`}`
 
-`                    EventBus.getDefault().post(new ScoreEvent(jsonObj.getString("score")));`
+`if(model.equals("PK")){`
 
-`                    if(jsonObj.getString("cmd").equals("going")){`
+`EventBus.getDefault().post(new ScoreEvent(jsonObj.getString("score")));`
 
-`                        jsonObj.put("from",to);`
+`if(jsonObj.getString("cmd").equals("going")){`
 
-`                        jsonObj.put("to",from);`
+`jsonObj.put("from",to);`
 
-`                        jsonObj.put("msgType","SCORE");`
+`jsonObj.put("to",from);`
 
-`                        jsonObj.put("recType","SINGLE");`
+`jsonObj.put("msgType","SCORE");`
 
-`                        jsonObj.put("content",jsonObj.getString("score"));`
+`jsonObj.put("recType","SINGLE");`
 
-`                        jsonObj.remove("score");`
+`jsonObj.put("content",jsonObj.getString("score"));`
 
-`                    }`
+`jsonObj.remove("score");`
 
-`                }`
+`}`
 
-`                mActivity.get().sendBroadcast( new Intent(FROM_GAME_ACTION).putExtra("data",jsonObj.toString()).putExtra("modle",model));`
+`}`
 
-`            } catch (JSONException e) {`
+`mActivity.get().sendBroadcast( new Intent(FROM_GAME_ACTION).putExtra("data",jsonObj.toString()).putExtra("modle",model));`
 
-`                e.printStackTrace();`
+`} catch (JSONException e) {`
 
-`            }`
+`e.printStackTrace();`
 
-`        }`
+`}`
 
-`    }`
+`}`
 
-
-
-
+`}`
 
