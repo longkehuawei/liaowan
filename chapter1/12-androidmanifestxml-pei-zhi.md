@@ -20,5 +20,23 @@
 
 `android:value="102"/>`
 
-![](/assets/TIM截图20180828175443.png)
+#### ![](/assets/TIM截图20180828175443.png)
+
+---
+
+#### 2.配置进程名字
+
+
+
+ `<application`
+
+`        android:allowBackup="true"`
+
+`        android:process=":lieniao"`
+
+`        android:icon="@mipmap/ic_launcher"`
+
+`        android:label="@string/app_name">`
+
+
 
