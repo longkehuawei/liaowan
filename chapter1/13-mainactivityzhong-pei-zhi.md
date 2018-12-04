@@ -8,49 +8,49 @@
 
      \*/
 
-    private class GameMessageBroadcastReceiver extends BroadcastReceiver {
+   ` private class GameMessageBroadcastReceiver extends BroadcastReceiver {`
 
-        @Override
+`        @Override`
 
-        public void onReceive\(Context context, Intent intent\) {
+`        public void onReceive(Context context, Intent intent) {`
 
-            //平台发送过来的消息
+`            //游戏发送过来的消息`
 
-            if\(intent.getAction\(\).equals\(FROM\_GAME\_ACTION\)\){
+`            if(intent.getAction().equals(FROM_GAME_ACTION)){`
 
-                if\(intent.getStringExtra\("type"\).equals\("finish"\)\){
+`                if(intent.getStringExtra("type").equals("finish")){`
 
-                    finish\(\);
+`                    finish();`
 
-                    new Handler\(\).postDelayed\(new Runnable\(\) {
+`                    new Handler().postDelayed(new Runnable() {`
 
-                        @Override
+`                        @Override`
 
-                        public void run\(\) {
+`                        public void run() {`
 
-                            int pid = android.os.Process.myPid\(\);
+`                            int pid = android.os.Process.myPid();`
 
-                            Log.e\("message", "Logout SendMessageToPlatform = "+pid\);
+`                            Log.e("message", "Logout SendMessageToPlatform = "+pid);`
 
-                            android.os.Process.killProcess\(pid\);
+`                            android.os.Process.killProcess(pid);`
 
-                        }
+`                        }`
 
-                    }, 100\);
+`                    }, 100);`
 
-                }else{
+`                }else{`
 
-                    String score= intent.getStringExtra\("score"\);
+`                    String score= intent.getStringExtra("score");`
 
-                    \(\(TextView\)findViewById\(R.id.OpponentScore\_tv\)\).setText\(score\);
+`                    ((TextView)findViewById(R.id.OpponentScore_tv)).setText(score);`
 
-                }
+`                }`
 
-            }
+`            }`
 
-        }
+`        }`
 
-    }
+`    }`
 
 #### 2.初始化laya引擎的时候，和游戏交互，传递给游戏数据
 
@@ -84,7 +84,7 @@
 
 `try {`
 
-`object.put\("isOn",isOn\);          
+`object.put\("isOn",isOn\);            
 //此为传递数据json字段\`\*\*
 
 `ConchJNI.RunJS("onRecvMessage("+object.toString()+")");`
