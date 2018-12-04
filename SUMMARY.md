@@ -10,4 +10,6 @@
   * [1.7 Copy demo中res中的布局和资源](chapter1/17-copy-demozhong-res-zhong-de-bu-ju-he-zi-yuan.md)
 * [U3D接入文档](README.md)
 * [CoCos接入文档](cocosjie-ru-wen-dang.md)
+  * [1.1添加项目依赖](cocosjie-ru-wen-dang/11tian-jia-xiang-mu-yi-lai.md)
+  * [1.2 AndroidManifest.xml配置](cocosjie-ru-wen-dang/12-androidmanifestxmlpei-zhi.md)
 
