@@ -71,15 +71,17 @@ public  String GetPlatformInfo\(\) {
 }
 ```
 
+---
+
 #### 3.游戏中,laya调用静态方法，提交游戏分数等数据给平台
+
+---
 
 **数据格式2种，如下**
 
-1. [ ] **游戏进行中，每秒上传数据**
+* **游戏进行中，每秒上传数据 {"cmd":"going"，"score":100}**
 
-   **{"cmd":"going"，"score":100}**
-
-2. [ ] **游戏结束 {"cmd":"end"，"score":100}**
+* **游戏结束 {"cmd":"end"，"score":100}**
 
 `public static void SendMessageToPlatform(JSONObject jsonObj) {`
 
