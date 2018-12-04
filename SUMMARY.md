@@ -7,6 +7,7 @@
   * [1.4 RuntimeProxy 配置](chapter1/14-runtimeproxy-pei-zhi.md)
   * [1.5 Laya返回键的处理](chapter1/15-layafan-hui-jian-de-chu-li.md)
   * [1.6 so 库的处理](chapter1/16-so-ku-de-chu-li.md)
+  * [1.7 Copy demo中res中的布局和资源](chapter1/17-copy-demozhong-res-zhong-de-bu-ju-he-zi-yuan.md)
 * [U3D接入文档](README.md)
 * [CoCos接入文档](cocosjie-ru-wen-dang.md)
 
