@@ -16,24 +16,43 @@
 
 #### 2.laya调用java静态方法
 
-`public static void SendMessageToPlatform(JSONObject jsonObj) {`
+---
 
-`/* {"game_type":'laya',"age":20,"id":1001}*/`
+* #####  **进入游戏，游戏主动拉取平台数据**
 
-`if (mActivity!=null&&mActivity.get() != null){`
+#####         数据格式如下
 
-`LocalBroadcastManager.getInstance(mActivity.get()).sendBroadcast(`
+public  String GetPlatformInfo\(\) {
 
-`new Intent(FROM_GAME_ACTION).putExtra("data",jsonObj.toString()).putExtra("type",type)`
+        ExportJavaFunction.CallBackToJS \(this, "GetPlatformInfo", data\);
 
-`);`
+        try {
 
-` `
+            JSONObject object=new JSONObject\(data\);
 
-`}`
+            if\(object.has\("model"\)\){
 
-`  
-`
+                String model =object.getString\("model"\);
 
-`}`
+                if\(model.equals\("PK"\)\){
+
+                    EventBus.getDefault\(\).post\(new MessageEvent\(""\)\);
+
+                }
+
+            }
+
+
+
+        } catch \(JSONException e\) {
+
+            e.printStackTrace\(\);
+
+        }
+
+
+
+        return data;
+
+    }
 

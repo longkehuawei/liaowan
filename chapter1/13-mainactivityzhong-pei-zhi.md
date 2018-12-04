@@ -48,6 +48,8 @@
 
 `//游戏发送过来的消息`
 
+
+
 `if(intent.getAction().equals(FROM_GAME_ACTION)){`
 
 `finish();`
@@ -60,6 +62,8 @@
 `}`
 
 `}`
+
+
 
 #### 2.初始化laya引擎的时候，和游戏交互，传递给游戏数据
 
@@ -93,7 +97,7 @@
 
 `try {`
 
-`object.put\("isOn",isOn\);      
+`object.put\("isOn",isOn\);        
 //此为传递数据json字段\`\*\*
 
 `ConchJNI.RunJS("onRecvMessage("+object.toString()+")");`
